@@ -23,9 +23,6 @@ export function calculateAverage(numbers) {
 
 export function factorial(number) {
     if (number < 0) return undefined;
-    let factorial = 1;
-    for (let i = 1; i <= number; i++) {
-        factorial *= i;
-    }
-    return factorial;
+    if (number == 0 || number == 1) return 1;
+    return number * factorial(--number);
 }
