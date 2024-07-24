@@ -14,3 +14,9 @@ export function fizzBuzz(n) {
             return n.toString();
     }
 }
+
+export function calculateAverage(numbers) {
+    if (!numbers.length) return NaN;
+    const sum = numbers.reduce((sum, currentValue) => (sum += currentValue), 0);
+    return sum / numbers.length;
+}
