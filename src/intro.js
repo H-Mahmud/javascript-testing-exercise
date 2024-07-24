@@ -20,3 +20,12 @@ export function calculateAverage(numbers) {
     const sum = numbers.reduce((sum, currentValue) => (sum += currentValue), 0);
     return sum / numbers.length;
 }
+
+export function factorial(number) {
+    if (number < 0) return undefined;
+    let factorial = 1;
+    for (let i = 1; i <= number; i++) {
+        factorial *= i;
+    }
+    return factorial;
+}

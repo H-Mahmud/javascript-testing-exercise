@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { calculateAverage, fizzBuzz, max } from "../src/intro";
+import { calculateAverage, fizzBuzz, factorial, max } from "../src/intro";
 
 describe("max", () => {
     it("should return the first argument if it is getter", () => {
@@ -45,5 +45,27 @@ describe("calculateAverage", () => {
     it("should calculate the average of an array with two and more than two elements", () => {
         expect(calculateAverage([1, 2])).toBe(1.5);
         expect(calculateAverage([1, 2, 3])).toBe(2);
+    });
+});
+
+describe("getFactorial", () => {
+    it("should return undefine if given a negative number", () => {
+        expect(factorial(-1)).toBeUndefined();
+    });
+
+    it("should return 1 if given value 0", () => {
+        expect(factorial(0)).toBe(1);
+    });
+
+    it("should return 1 if given value 1", () => {
+        expect(factorial(1)).toBe(1);
+    });
+
+    it("should return 3 if given value 2", () => {
+        expect(factorial(3)).toBe(6);
+    });
+
+    it("should return 120 if given value 5", () => {
+        expect(factorial(5)).toBe(120);
     });
 });
