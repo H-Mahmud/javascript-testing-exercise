@@ -82,6 +82,9 @@ export function fetchData() {
         });
     });
 }
+export function fetchDataReject() {
+    return Promise.reject({ reason: "Operation failed" });
+}
 
 // Lesson: Setup and teardown
 export class Stack {
