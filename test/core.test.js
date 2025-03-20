@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
     calculateDiscount,
     canDrive,
@@ -95,19 +95,14 @@ describe("validUserInput", () => {
 });
 
 describe("isPriceInRange", () => {
-    it("should return false when the price is outside of the range", () => {
-        expect(isPriceInRange(-10, 0, 100)).toBe(false);
-        expect(isPriceInRange(200, 0, 100)).toBe(false);
-    });
-
-    it("should return true when min and max range equal to the price", () => {
-        expect(isPriceInRange(0, 0, 100)).toBe(true);
-        expect(isPriceInRange(100, 0, 100)).toBe(true);
-    });
-
-    it("should return true when the price is inside the range", () => {
-        expect(isPriceInRange(50, 0, 100)).toBe(true);
-        expect(isPriceInRange(100, 0, 100)).toBe(true);
+    it.each([
+        { scenario: "price < min", price: -10, result: false },
+        { scenario: "price = min", price: 0, result: true },
+        { scenario: "price is between min and max", price: 50, result: true },
+        { scenario: "price > max", price: 200, result: false },
+        { scenario: "price = max", price: 100, result: true },
+    ])("Should return $result when $scenario", ({ price, result }) => {
+        expect(isPriceInRange(price, 0, 100)).toBe(result);
     });
 });
 
