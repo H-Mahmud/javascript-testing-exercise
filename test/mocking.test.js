@@ -1,10 +1,16 @@
 import { it, vi, expect, describe } from "vitest";
-import { getPriceInCurrency, getShippingInfo } from "../src/mocking";
+import {
+    getPriceInCurrency,
+    getShippingInfo,
+    renderPage,
+} from "../src/mocking";
 import { getExchangeRate } from "../src/libs/currency";
 import { getShippingQuote } from "../src/libs/shipping";
+import { trackPageView } from "../src/libs/analytics";
 
 vi.mock("../src/libs/currency");
 vi.mock("../src/libs/shipping");
+vi.mock("../src/libs/analytics");
 
 describe("getPriceInCurrency", () => {
     it("should return price in target currency", () => {
@@ -35,5 +41,19 @@ describe("getShippingInfo", () => {
 
         expect(result).toMatch("$10");
         expect(result).toMatch(/3 days/i);
+    });
+});
+
+describe("renderPage", () => {
+    it("should return the correct content", async () => {
+        const result = await renderPage();
+
+        expect(result).toMatch(/content/i);
+    });
+
+    it("should called analytics", async () => {
+        await renderPage();
+
+        expect(trackPageView).toHaveBeenCalledWith("/home");
     });
 });
