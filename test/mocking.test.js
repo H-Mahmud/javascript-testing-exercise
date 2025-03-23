@@ -2,6 +2,7 @@ import { it, vi, expect, describe } from "vitest";
 import {
     getPriceInCurrency,
     getShippingInfo,
+    isOnline,
     login,
     renderPage,
     signUp,
@@ -147,5 +148,23 @@ describe("login", () => {
         const securityCode = spy.mock.results[0].value.toString();
 
         expect(sendEmail).toHaveBeenCalledWith(email, securityCode);
+    });
+});
+
+describe("isOnline", () => {
+    it("should return false if current hour is outside of opening hours", () => {
+        vi.setSystemTime("2025-03-22 07:59");
+        expect(isOnline()).toBe(false);
+
+        vi.setSystemTime("2025-03-22 20:01");
+        expect(isOnline()).toBe(false);
+    });
+
+    it("should return true if current hour is withing opening hours", () => {
+        vi.setSystemTime("2025-03-22 08:00");
+        expect(isOnline()).toBe(true);
+
+        vi.setSystemTime("2025-03-22 19:59");
+        expect(isOnline()).toBe(true);
     });
 });
